@@ -14,7 +14,7 @@ import chess.Color;
 public class UI {
 
 	// https://stackoverflow.com/questions/5762491/how-to-print-color-in-console-using-system-out-println
-
+	// cores no prompt
 	public static final String ANSI_RESET = "\u001B[0m";
 	public static final String ANSI_BLACK = "\u001B[30m";
 	public static final String ANSI_RED = "\u001B[31m";
@@ -69,7 +69,8 @@ public class UI {
 			System.out.println("Winner: " + chessMatch.getCurrentPlayer());
 		}
 	}
-	
+
+	//imprimir tabuleiro sem movimentos possíveis da peça
 	public static void printBoard(ChessPiece[][] pieces) {
 		for (int i = 0; i < pieces.length; i++) {
 			System.out.print((8 - i) + " ");
@@ -81,6 +82,7 @@ public class UI {
 		System.out.println("  a b c d e f g h");
 	}
 
+	//imprimir tabuleiro e movimentos possíveis da peça
 	public static void printBoard(ChessPiece[][] pieces, boolean[][] possibleMoves) {
 		for (int i = 0; i < pieces.length; i++) {
 			System.out.print((8 - i) + " ");
@@ -93,6 +95,7 @@ public class UI {
 	}
 
 	private static void printPiece(ChessPiece piece, boolean background) {
+		// colorir lances possiveis da peça selecionada
 		if (background) {
 			System.out.print(ANSI_BLUE_BACKGROUND);
 		}
@@ -101,7 +104,7 @@ public class UI {
         }
         else {
             if (piece.getColor() == Color.WHITE) {
-                System.out.print(ANSI_WHITE + piece + ANSI_RESET);
+                System.out.print(ANSI_BLUE + piece + ANSI_RESET);
             }
             else {
                 System.out.print(ANSI_YELLOW + piece + ANSI_RESET);
@@ -111,6 +114,7 @@ public class UI {
 	}
 	
 	private static void printCapturedPieces(List<ChessPiece> captured) {
+		// converter para stream, checar cor, coletar cor
 		List<ChessPiece> white = captured.stream().filter(x -> x.getColor() == Color.WHITE).collect(Collectors.toList());
 		List<ChessPiece> black = captured.stream().filter(x -> x.getColor() == Color.BLACK).collect(Collectors.toList());
 		System.out.println("Captured pieces:");
